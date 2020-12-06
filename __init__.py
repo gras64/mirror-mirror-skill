@@ -12,6 +12,25 @@ class MirrorMirror(MycroftSkill):
     @intent_handler(IntentBuilder("handlermirror").require("mirror").
                     one_of("beautiful", "bad").optionally("man").optionally("woman").optionally("location").build())
     def handle_mirror_mirror(self, message):
+        location = ""
+        bad = ""
+        beautiful = ""
+        if message.data.get("location", False):
+            for word in message.data['utterance'].split(" "):
+                if self.voc_match(word, "location"):
+                    location = word
+                    break
+                location = ""
+        if message.data.get("beautiful", False):
+            for word in message.data['utterance'].split(" "):
+                if self.voc_match(word, "beautiful"):
+                    beautiful = word
+                    break
+        if message.data.get("bad", False):
+            for word in message.data['utterance'].split(" "):
+                if self.voc_match(word, "beautiful"):
+                    bad = word
+                    break        
         if message.data.get("man", False):
             gender = "male"
         elif message.data.get("woman", False):
@@ -20,9 +39,9 @@ class MirrorMirror(MycroftSkill):
             gender = ""
         gender = self.gender_value[gender]
         if message.data.get("beautiful", False):
-            self.speak_dialog('friendly', data={"gender":gender, "beautiful":self.translate("beautiful", data=None)})
+            self.speak_dialog('friendly', data={"gender":gender, "beautiful":beautiful})
         else:
-            self.speak_dialog('unfriendly', data={"gender":gender, "bad" :self.translate("bad", data=None)})
+            self.speak_dialog('unfriendly', data={"gender":gender, "bad" :bad})
 
     def shutdown(self):
         super(MirrorMirror, self).shutdown()
