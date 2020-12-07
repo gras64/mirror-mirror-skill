@@ -1,0 +1,19 @@
+{
+    "name": "mirror mirror skill",
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "there are good and not so good answers",
+                "fields": [
+                    {
+                        "name": "random",
+                        "type": "checkbox",
+                        "label": "enable Random all mode or only good answers",
+                        "value": "True",
+                        "placeholder": "demo prompt in the input box"
+                    }
+                ]
+            }
+        ]
+    }
+}
